@@ -100,57 +100,50 @@ module.exports = function( matches, options ) {
 	output += '\n';
 
 	matches = matches.map( function( match ) {
-		var matchId = uniqueMatchId( match );
+		var matchId = uniqueMatchId( match ),
+			firstMatch = uniqueMatchesMap[ matchId ];
 
-		if ( uniqueMatchesMap[ matchId ] ) {
-			// Aggregate lines and comments for output later.
-			if ( match.line ) {
-				if ( uniqueMatchesMap[ matchId ].line === undefined ) {
-					uniqueMatchesMap[ matchId ].line = {};
-				} else if ( typeof uniqueMatchesMap[ matchId ].line === 'string' ) {
-					tmp = uniqueMatchesMap[ matchId ].line;
-					uniqueMatchesMap[ matchId ].line = {};
-					uniqueMatchesMap[ matchId ].line[ tmp ] = true;
-				}
-				uniqueMatchesMap[ matchId ].line[ match.line ] = true;
-			}
-			if ( match.comment ) {
-				if ( uniqueMatchesMap[ matchId ].comment === undefined ) {
-					uniqueMatchesMap[ matchId ].comment = {};
-				} else if ( typeof uniqueMatchesMap[ matchId ].comment === 'string' ) {
-					tmp = uniqueMatchesMap[ matchId ].comment;
-					uniqueMatchesMap[ matchId ].comment = {};
-					uniqueMatchesMap[ matchId ].comment[ tmp ] = true;
-				}
-				uniqueMatchesMap[ matchId ].comment[ match.comment ] = true;
-			}
+		if ( ! firstMatch ) {
+			match.lines = {};
+			match.comments = {};
+			uniqueMatchesMap[ matchId ] = match;
+		}
+
+		// Aggregate lines and comments for output later.
+		if ( match.line ) {
+			uniqueMatchesMap[ matchId ].lines[ match.line ] = true;
+		}
+		if ( match.comment ) {
+			uniqueMatchesMap[ matchId ].comments[ match.comment ] = true;
+		}
+
+		// ignore this match now that we have updated the first match
+		if ( firstMatch ) {
 			return undefined;
 		}
 
-		return uniqueMatchesMap[ matchId ] = match;
+		return match;
 	} ).filter( function( match ) { // removes undefined
 		return match;
 	} );
 
 	output += matches.map( function( match ) {
-		var matchPotStr = "", lines, comments;
+		var matchPotStr = "";
 
-		if ( match.line ) {
-			lines = typeof match.line == 'object' ? Object.keys( match.line ) : [ match.line ];
-			matchPotStr += lines.map( function( line ) {
-				return '#: ' + line + '\n';
-			} ).join( '' );
-		}
-		if ( match.comment ) {
-			comments = typeof match.comment == 'object' ? Object.keys( match.comment ) : [ match.comment ];
-			matchPotStr += comments.map( function( commentLine ) {
-				return '#. ' + commentLine + '\n';
-			} ).join( '' );
-		}
+		matchPotStr += Object.keys( match.lines ).map( function( line ) {
+			return '#: ' + line + '\n';
+		} ).join( '' );
+
+		matchPotStr += Object.keys( match.comments ).map( function( commentLine ) {
+			return '#. ' + commentLine + '\n';
+		} ).join( '' );
+
 		if ( match.context ) {
 			matchPotStr += 'msgctxt ' + multiline( match.context, 'msgctxt ' ) + '\n';
 		}
+
 		matchPotStr += 'msgid ' + multiline( match.single, 'msgid ' ) + '\n';
+
 		if ( match.plural ) {
 			matchPotStr += 'msgid_plural ' + multiline( match.plural, 'msgid_plural ' ) + '\n';
 			matchPotStr += 'msgstr[0] ""\n';
@@ -158,6 +151,7 @@ module.exports = function( matches, options ) {
 		} else {
 			matchPotStr += 'msgstr ""\n';
 		}
+
 		return matchPotStr;
 	} ).join( '\n' );
 
