@@ -99,18 +99,51 @@ module.exports = function( matches, options ) {
 
 	output += '\n';
 
-	output += matches.map( function( match ) {
-		var matchPotStr = "",
-			matchId = uniqueMatchId( match );
+	matches = matches.map( function( match ) {
+		var matchId = uniqueMatchId( match );
 
 		if ( uniqueMatchesMap[ matchId ] ) {
+			// Aggregate lines and comments for output later.
+			if ( match.line ) {
+				if ( uniqueMatchesMap[ matchId ].line === undefined ) {
+					uniqueMatchesMap[ matchId ].line = {};
+				} else if ( typeof uniqueMatchesMap[ matchId ].line === 'string' ) {
+					tmp = uniqueMatchesMap[ matchId ].line;
+					uniqueMatchesMap[ matchId ].line = {};
+					uniqueMatchesMap[ matchId ].line[ tmp ] = true;
+				}
+				uniqueMatchesMap[ matchId ].line[ match.line ] = true;
+			}
+			if ( match.comment ) {
+				if ( uniqueMatchesMap[ matchId ].comment === undefined ) {
+					uniqueMatchesMap[ matchId ].comment = {};
+				} else if ( typeof uniqueMatchesMap[ matchId ].comment === 'string' ) {
+					tmp = uniqueMatchesMap[ matchId ].comment;
+					uniqueMatchesMap[ matchId ].comment = {};
+					uniqueMatchesMap[ matchId ].comment[ tmp ] = true;
+				}
+				uniqueMatchesMap[ matchId ].comment[ match.comment ] = true;
+			}
 			return undefined;
-		} else {
-			uniqueMatchesMap[ matchId ] = true;
 		}
 
+		return uniqueMatchesMap[ matchId ] = match;
+	} ).filter( function( match ) { // removes undefined
+		return match;
+	} );
+
+	output += matches.map( function( match ) {
+		var matchPotStr = "", lines, comments;
+
+		if ( match.line ) {
+			lines = typeof match.line == 'object' ? Object.keys( match.line ) : [ match.line ];
+			matchPotStr += lines.map( function( line ) {
+				return '#: ' + line + '\n';
+			} ).join( '' );
+		}
 		if ( match.comment ) {
-			matchPotStr += match.comment.split( '\n' ).map( function( commentLine ) {
+			comments = typeof match.comment == 'object' ? Object.keys( match.comment ) : [ match.comment ];
+			matchPotStr += comments.map( function( commentLine ) {
 				return '#. ' + commentLine + '\n';
 			} ).join( '' );
 		}
@@ -126,8 +159,6 @@ module.exports = function( matches, options ) {
 			matchPotStr += 'msgstr ""\n';
 		}
 		return matchPotStr;
-	} ).filter( function( match ) { // removes undefined
-		return match;
 	} ).join( '\n' );
 
 	return output;
