@@ -244,7 +244,7 @@ describe( 'index', function() {
 		} );
 
 		it( 'should combine strings', function() {
-			expect( output ).to.have.string( '#: test/cli/out/i18n-test-examples.js:6\n#: test/cli/out/i18n-test-examples.js:68\n#. Second ocurrence\nmsgid "My hat has three corners."' );
+			expect( output ).to.match( /#: test\/cli\/out\/i18n-test-examples.js:\d+\n#: test\/cli\/out\/i18n-test-examples.js:\d+\n#. Second ocurrence\nmsgid "My hat has three corners."/ );
 		} );
 
 		it( 'should pass through an sprintf as a regular translation', function() {
