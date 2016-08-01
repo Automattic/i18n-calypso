@@ -227,7 +227,11 @@ describe( 'index', function() {
 		} );
 
 		it( 'should create a plural translation', function() {
-			expect( output ).to.have.string( 'msgid "My hat has three corners."\nmsgid_plural "My hats have three corners."\nmsgstr[0] ""\n' );
+			expect( output ).to.have.string( 'msgid "My hat has four corners."\nmsgid_plural "My hats have five corners."\nmsgstr[0] ""\n' );
+		} );
+
+		it( 'should combine singular with plural translation', function() {
+			expect( output ).not.to.have.string( 'msgid "My hat has four corners."\nmsgstr ""\n' );
 		} );
 
 		it( 'should create a context translation', function() {
@@ -307,7 +311,7 @@ describe( 'index', function() {
 		} );
 
 		it( 'should create a plural _n() translation', function() {
-			expect( output ).to.have.string( '_n( "My hat has three corners.", "My hats have three corners.", 1 ),' );
+			expect( output ).to.have.string( '_n( "My hat has four corners.", "My hats have five corners.", 1 ),' );
 		} );
 
 		it( 'should create a context _x() translation', function() {

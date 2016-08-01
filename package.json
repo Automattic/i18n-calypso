@@ -30,7 +30,7 @@
     "react": "0.14.8 || ^15.1.0",
     "async": "^1.5.2",
     "commander": "^2.9.0",
-    "xgettext-js": "^0.3.0"
+    "xgettext-js": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.7",
