@@ -21,6 +21,12 @@ function test() {
 	// Should be merged in POT with the pluralized form
 	content = i18n.translate( { original: 'My hat has four corners.' } );
 
+	// Should catch template literals
+	content = i18n.translate( `My hat has six corners.` );
+	content = i18n.translate( `My hat
+has seventeen
+corners.` );
+
 	// providing context
 	content = i18n.translate( {
 		original: 'post',
