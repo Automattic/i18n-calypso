@@ -40,9 +40,26 @@ module.exports = function( config ) {
 
 	function getFileMatches( inputFiles ) {
 		return inputFiles.map( function( inputFile ) {
+			var inputComment;
+
+			var input = fs.readFileSync( inputFile, 'utf8' );
+			var rxFileCommentMatch = new RegExp( "^//\\s((Screenshot|Example):\\s(.*))$", 'm' );
+			if ( rxFileCommentMatch.test( input ) ) {
+				inputComment = input.match(rxFileCommentMatch)[1];
+			}
+
 			var relativeInputFilePath = path.relative( __dirname, inputFile ).replace( /^[\/.]+/, '' );
-			return parser.getMatches( fs.readFileSync( inputFile, 'utf8' ) ).map( function( match ) {
+			return parser.getMatches( input ).map( function( match ) {
 				match.line = relativeInputFilePath + ':' + match.line;
+
+				if ( typeof inputComment !== 'undefined' ) {
+					if ( typeof match.comment === 'string' ) {
+						match.comment += "; " + inputComment;
+					} else {
+						match.comment = inputComment;
+					}
+				}
+
 				return match;
 			});
 		} );
