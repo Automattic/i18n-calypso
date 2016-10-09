@@ -17,7 +17,7 @@ var i18nCalypso = require( '../cli' );
 /**
  * Internal variables/
  */
-var keywords, format, projectName, outputFile, extras, arrayName, inputFiles, inputPaths;
+var keywords, format, projectName, outputFile, extras, arrayName, inputFiles, inputPaths, ignoreFileComments;
 
 function collect( val, memo ) {
 	memo.push( val );
@@ -37,6 +37,7 @@ program
 	.option( '-p, --project-name <name>', 'name of the project' )
 	.option( '-e, --extra <name>', 'Extra type of strings to add to the generated file (for now only `date` is available)' )
 	.option( '-a, --array-name <name>', 'name of variable in generated php file that contains array of method calls' )
+	.option( '-g, --ignore-file-comments', 'ignore global file comments' )
 	.usage( '-o outputFile -i inputFile -f format [inputFile ...]' )
 	.on( '--help', function() {
 		console.log( '  Examples' );
@@ -51,6 +52,7 @@ outputFile = program.outputFile;
 arrayName = program.arrayName;
 projectName = program.projectName;
 extras = Array.isArray( program.extra ) ? program.extra : ( program.extra ? [ program.extra ] : null );
+ignoreFileComments = program.ignoreFileComments;
 inputFiles = ( program.inputFile.length ) ? program.inputFile : program.args;
 
 if ( inputFiles.length === 0 ) {
@@ -74,7 +76,8 @@ var result = i18nCalypso( {
 	inputPaths: inputPaths,
 	format: format,
 	extras: extras,
-	projectName: projectName
+	projectName: projectName,
+	ignoreFileComments: ignoreFileComments
 } );
 
 if ( outputFile ) {

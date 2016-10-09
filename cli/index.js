@@ -6,7 +6,9 @@ var fs = require( 'fs' ),
 	Xgettext = require( 'xgettext-js' ),
 	preProcessXGettextJSMatch = require( './preprocess-xgettextjs-match.js' ),
 	formatters = require( './formatters' ),
-	debug = require( 'debug' )( 'glotpress-js' );
+	debug = require( 'debug' )( 'glotpress-js' ),
+	validUrl = require( 'valid-url');
+
 
 module.exports = function( config ) {
 	var keywords,
@@ -41,11 +43,18 @@ module.exports = function( config ) {
 	function getFileMatches( inputFiles ) {
 		return inputFiles.map( function( inputFile ) {
 			var inputComment;
-
 			var input = fs.readFileSync( inputFile, 'utf8' );
-			var rxFileCommentMatch = new RegExp( "^//\\s((Screenshot|Example):\\s(.*))$", 'm' );
-			if ( rxFileCommentMatch.test( input ) ) {
-				inputComment = input.match(rxFileCommentMatch)[1];
+
+			if ( ! config.ignoreFileComments ) {
+				var rxFileCommentMatch = new RegExp( "^//\\s((Screenshot|Demo) URL:\\s(.*))$", 'm' );
+				if ( rxFileCommentMatch.test( input ) ) {
+					var commentMatches = input.match(rxFileCommentMatch);
+					if ( validUrl.isWebUri( commentMatches[3] ) ) {
+						inputComment = commentMatches[1];
+					} else {
+						throw new Error( 'File comment must be a valid web uri' );
+					}
+				}
 			}
 
 			var relativeInputFilePath = path.relative( __dirname, inputFile ).replace( /^[\/.]+/, '' );
