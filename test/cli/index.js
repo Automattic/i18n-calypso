@@ -235,6 +235,10 @@ describe( 'index', function() {
 			expect( output ).to.have.string( 'msgid "My hat has six corners."' );
 			expect( output ).to.have.string( 'msgid "My hat\\nhas seventeen\\ncorners."' );
 		} );
+
+		it( 'should parse file comments', function() {
+			expect( output ).to.have.string( '#. Demo URL: https://example.wordpress.com' );
+		} );
 	} );
 
 	describe( 'PHP', function() {
