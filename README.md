@@ -146,9 +146,9 @@ You must specify both the singular and plural variants of a string when it conta
 // a number represented directly, but still depends on it
 var numHats = howManyHats(), // returns integer
     content = i18n.translate(
-    	'My hat has three corners.',
-    	'My hats have three corners.',
-    	{
+        'My hat has three corners.',
+        'My hats have three corners.',
+        {
             count: numHats
         }
     );
@@ -294,11 +294,11 @@ import React from 'react';
 import { localize } from 'i18n-calypso';
 
 function Greeting( { translate, className } ) {
-	return (
-		<h1 className={ className }>
-			{ translate( 'Hello!' ) }
-		</h1>
-	);
+    return (
+        <h1 className={ className }>
+            { translate( 'Hello!' ) }
+        </h1>
+    );
 }
 
 export default localize( Greeting );
@@ -313,8 +313,8 @@ import { render } from 'react-dom';
 import Greeting from './greeting';
 
 render(
-	<Greeting className="greeting" />,
-	document.body
+    <Greeting className="greeting" />,
+    document.body
 );
 ```
 
