@@ -51,8 +51,6 @@ module.exports = function( config ) {
 					var commentMatches = input.match(rxFileCommentMatch);
 					if ( validUrl.isWebUri( commentMatches[3] ) ) {
 						inputComment = commentMatches[1];
-					} else {
-						throw new Error( 'File comment must be a valid web uri' );
 					}
 				}
 			}
