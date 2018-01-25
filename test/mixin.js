@@ -2,6 +2,8 @@
  * External dependencies
  */
 var React = require( 'react' ),
+	createReactClass = require( 'create-react-class' ),
+	setupEnzymeAdapter = require( 'enzyme-adapter-react-helper' ),
 	expect = require( 'chai' ).expect,
 	mount = require( 'enzyme' ).mount,
 	render = require( 'enzyme' ).render,
@@ -16,18 +18,19 @@ var i18n = require( '..' ),
 
 describe( 'mixin()', function() {
 	useFakeDom();
+	setupEnzymeAdapter();
 
 	it( 'should add its properties to a React Component', function() {
-		var mixinComponent = React.createClass( {
+		var mixinComponent = createReactClass( {
 			mixins: [ i18nMixin ],
 			render: emptyRender
 		} );
 
 		var mounted = mount( React.createElement( mixinComponent ) );
 
-		expect( mounted.node.translate ).to.be.a( 'function' );
-		expect( mounted.node.moment ).to.be.a( 'function' );
-		expect( mounted.node.numberFormat ).to.be.a( 'function' );
+		expect( mounted.instance().translate ).to.be.a( 'function' );
+		expect( mounted.instance().moment ).to.be.a( 'function' );
+		expect( mounted.instance().numberFormat ).to.be.a( 'function' );
 	} );
 
 	it( 'should be able to translate a string inside render', function() {
@@ -41,7 +44,7 @@ describe( 'mixin()', function() {
 			]
 		} );
 
-		var mixinComponent = React.createClass( {
+		var mixinComponent = createReactClass( {
 			mixins: [ i18nMixin ],
 			render: function() {
 				return React.createElement( 'p', null, this.translate( 'hello' ) );

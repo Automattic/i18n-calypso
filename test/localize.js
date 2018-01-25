@@ -2,6 +2,7 @@
  * External dependencies
  */
 var React = require( 'react' ),
+	setupEnzymeAdapter = require( 'enzyme-adapter-react-helper' ),
 	expect = require( 'chai' ).expect,
 	mount = require( 'enzyme' ).mount,
 	useFakeDom = require( 'react-test-env' ).useFakeDom;
@@ -14,6 +15,7 @@ var localize = require( '..' ).localize,
 
 describe( 'localize()', function() {
 	useFakeDom();
+	setupEnzymeAdapter();
 
 	it( 'should be named using the variable name of the composed component', function() {
 		class MyComponent extends React.Component {
