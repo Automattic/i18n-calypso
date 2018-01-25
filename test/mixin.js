@@ -5,7 +5,7 @@ var React = require( 'react' ),
 	createReactClass = require( 'create-react-class' ),
 	setupEnzymeAdapter = require( 'enzyme-adapter-react-helper' ),
 	expect = require( 'chai' ).expect,
-	mount = require( 'enzyme' ).mount,
+	shallow = require( 'enzyme' ).shallow,
 	render = require( 'enzyme' ).render,
 	useFakeDom = require( 'react-test-env' ).useFakeDom;
 
@@ -26,7 +26,7 @@ describe( 'mixin()', function() {
 			render: emptyRender
 		} );
 
-		var mounted = mount( React.createElement( mixinComponent ) );
+		var mounted = shallow( React.createElement( mixinComponent ) );
 
 		expect( mounted.instance().translate ).to.be.a( 'function' );
 		expect( mounted.instance().moment ).to.be.a( 'function' );
