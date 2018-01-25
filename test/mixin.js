@@ -3,7 +3,6 @@
  */
 var React = require( 'react' ),
 	createReactClass = require( 'create-react-class' ),
-	setupEnzymeAdapter = require( 'enzyme-adapter-react-helper' ),
 	expect = require( 'chai' ).expect,
 	shallow = require( 'enzyme' ).shallow,
 	render = require( 'enzyme' ).render,
@@ -18,7 +17,6 @@ var i18n = require( '..' ),
 
 describe( 'mixin()', function() {
 	useFakeDom();
-	setupEnzymeAdapter();
 
 	it( 'should add its properties to a React Component', function() {
 		var mixinComponent = createReactClass( {
