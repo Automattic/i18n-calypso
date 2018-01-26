@@ -38,8 +38,6 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "enzyme": "^3.2.0",
-    "enzyme-adapter-react-14": "^1.0.5",
-    "enzyme-adapter-react-15.4": "^1.0.5",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-adapter-react-helper": "^1.2.3",
     "mocha": "^2.4.5",
