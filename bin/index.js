@@ -66,8 +66,6 @@ inputPaths = flatten( inputFiles.map( function( fileName ) {
 	return glob.sync( fileName, { cwd: process.env.PWD } );
 } ) );
 
-console.log( 'Reading inputFiles:\n\t- ' + inputPaths.join( '\n\t- ' ) );
-
 inputPaths.forEach( function( inputFile ) {
 	if ( ! fs.existsSync( inputFile ) ) {
 		console.error( 'Error: inputFile, `' + inputFile + '`, does not exist' );
