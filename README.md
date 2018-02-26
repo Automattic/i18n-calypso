@@ -335,7 +335,7 @@ I18n accepts a language-specific locale json file that contains the whitelisted 
 
 ### Key Hashing
 
-In order to reduce file-size, i18n-calypso allows the usage of hashed keys for lookup. This is a non-standard extension of the Jed standard which is enabled by supplying a header key `key-hash` to specify a hash method (currently only `sha1` is supported), as well as a hash length. For example `sha1-4` uses the first 4 hexadecimal chars of the sha1 hash of the standard Jed lookup string.
+In order to reduce file-size, i18n-calypso allows the usage of hashed keys for lookup. This is a non-standard extension of the Jed standard which is enabled by supplying a header key `key-hash` to specify a hash method (currently only `sha1` is supported), as well as a hash length. For example `sha1-4` uses the first 4 hexadecimal chars of the sha1 hash of the standard Jed lookup string. As a further optimization, variable hash lengths are available, potentially requiring multiple lookups per string: `sha1-3-7` specifies that hash lengths of 3 to 7 are used in the file.
 
 #### Example
 
