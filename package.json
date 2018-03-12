@@ -16,7 +16,7 @@
     "url": "https://github.com/Automattic/i18n-calypso/issues"
   },
   "scripts": {
-    "test": "mocha --recursive",
+    "test": "mocha --compilers js:babel-core/register --recursive",
     "lint": "eslint ."
   },
   "homepage": "https://github.com/Automattic/i18n-calypso#readme",
@@ -38,6 +38,7 @@
     "xgettext-js": "^1.0.0"
   },
   "devDependencies": {
+    "babel-core": "6.25.0",
     "babel-eslint": "6.1.2",
     "chai": "^3.5.0",
     "enzyme": "^3.2.0",
