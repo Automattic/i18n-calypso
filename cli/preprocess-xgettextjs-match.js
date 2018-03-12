@@ -12,24 +12,24 @@
  * @return {object} data object combining the strings and options passed into translate();
  */
 module.exports = function preProcessXGettextJSMatch( match ) {
-	var finalProps = { line: match.line },
-		options, i, keyName, args;
+	const finalProps = { line: match.line };
+	let options, keyName;
 
 	if ( ! match.arguments.length ) {
 		return;
 	}
 
-	args = match.arguments;
+	const args = match.arguments;
 
 	[ 'single', 'plural', 'options' ].slice( 0, args.length ).forEach( function( field, i ) {
-		if ( 'StringLiteral' === args[i].type ) {
-			finalProps[field] = makeDoubleQuoted( args[i].extra.raw );
-		} else if ( 'BinaryExpression' === args[i].type ) {
-			finalProps[field] = encapsulateString( concatenateBinaryExpression( args[i] ) );
-		} else if ( 'ObjectExpression' === args[i].type && 'undefined' === typeof options ) {
+		if ( 'StringLiteral' === args[ i ].type ) {
+			finalProps[ field ] = makeDoubleQuoted( args[ i ].extra.raw );
+		} else if ( 'BinaryExpression' === args[ i ].type ) {
+			finalProps[ field ] = encapsulateString( concatenateBinaryExpression( args[ i ] ) );
+		} else if ( 'ObjectExpression' === args[ i ].type && 'undefined' === typeof options ) {
 			options = args[ i ];
-		} else if ( 'TemplateLiteral' === args[i].type ) {
-			finalProps[field] = makeDoubleQuoted( '`' + args[i].quasis[0].value.raw + '`' );
+		} else if ( 'TemplateLiteral' === args[ i ].type ) {
+			finalProps[ field ] = makeDoubleQuoted( '`' + args[ i ].quasis[ 0 ].value.raw + '`' );
 		}
 	} );
 
@@ -37,7 +37,7 @@ module.exports = function preProcessXGettextJSMatch( match ) {
 		// map options to finalProps object
 		options.properties.forEach( function( property ) {
 			// key might be an  Identifier (name), or a StringLiteral (value)
-			var key = property.key.name || property.key.value;
+			const key = property.key.name || property.key.value;
 			if ( 'StringLiteral' === property.value.type ) {
 				keyName = ( key === 'original' ) ? 'single' : key;
 				finalProps[ keyName ] = ( 'comment' === key ) ? property.value.value : makeDoubleQuoted( property.value.extra.raw );
@@ -77,7 +77,7 @@ module.exports = function preProcessXGettextJSMatch( match ) {
  * @return {string}          - the concatenated string
  */
 function concatenateBinaryExpression( ASTNode ) {
-	var result;
+	let result;
 	if ( ASTNode.operator !== '+' ) {
 		return false;
 	}
@@ -114,7 +114,7 @@ function makeDoubleQuoted( literal ) {
 		return '"' + literal.substring( 1, literal.length - 1 ).replace( /`/g, '\`' ).replace( /(\\|")/g, '\\$1' ) + '"';
 	}
 
-	return "";
+	return '';
 }
 
 /**
@@ -124,6 +124,8 @@ function makeDoubleQuoted( literal ) {
  * @return {string}        - universal representation of string or input unchanged
  */
 function encapsulateString( input ) {
-	if ( 'string' !== typeof input ) return input;
+	if ( 'string' !== typeof input ) {
+		return input;
+	}
 	return '"' + input.replace( /(\\|")/g, '\\$1' ) + '"';
 }

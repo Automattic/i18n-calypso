@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-var I18N = require( './lib' ),
+const I18N = require( './lib' ),
 	i18n = new I18N();
 
 module.exports = {
@@ -18,12 +18,11 @@ module.exports = {
 	registerTranslateHook: i18n.registerTranslateHook.bind( i18n ),
 	state: i18n.state,
 	stateObserver: i18n.stateObserver,
-	on: i18n.stateObserver.on.bind(i18n.stateObserver),
-	off: i18n.stateObserver.removeListener.bind(i18n.stateObserver),
-	emit: i18n.stateObserver.emit.bind(i18n.stateObserver),
-	mixin: require( './lib/mixin' )( i18n ),
+	on: i18n.stateObserver.on.bind( i18n.stateObserver ),
+	off: i18n.stateObserver.removeListener.bind( i18n.stateObserver ),
+	emit: i18n.stateObserver.emit.bind( i18n.stateObserver ),
 	localize: require( './lib/localize' )( i18n ),
 	$this: i18n,
-	I18N: I18N
+	I18N: I18N,
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "i18n-calypso",
-  "version": "1.9.1",
+  "version": "2.0.0",
   "description": "i18n JavaScript library on top of Jed originally used in Calypso",
   "main": "index.js",
   "repository": {
@@ -16,7 +16,8 @@
     "url": "https://github.com/Automattic/i18n-calypso/issues"
   },
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "lint": "eslint ."
   },
   "homepage": "https://github.com/Automattic/i18n-calypso#readme",
   "dependencies": {
@@ -37,10 +38,15 @@
     "xgettext-js": "^1.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "6.1.2",
     "chai": "^3.5.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-adapter-react-helper": "^1.2.3",
+    "eslint": "3.8.1",
+    "eslint-config-wpcalypso": "2.0.0",
+    "eslint-plugin-react": "7.1.0",
+    "eslint-plugin-wpcalypso": "3.4.1",
     "mocha": "^2.4.5",
     "react-dom": "^16.0.0",
     "react-test-env": "0.1.1",
