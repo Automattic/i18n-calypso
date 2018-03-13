@@ -1,7 +1,7 @@
 /**
  * Module dependencies/
  */
-var fs = require( 'fs' ),
+const fs = require( 'fs' ),
 	path = require( 'path' ),
 	Xgettext = require( 'xgettext-js' ),
 	preProcessXGettextJSMatch = require( './preprocess-xgettextjs-match.js' ),
@@ -9,16 +9,12 @@ var fs = require( 'fs' ),
 	debug = require( 'debug' )( 'glotpress-js' );
 
 module.exports = function( config ) {
-	var keywords,
-		data,
+	let data,
 		matches,
-		parser,
 		parserKeywords,
-		formatter,
-		textOutput;
+		formatter = ( config.format || 'pot' ).toLowerCase();
 
-	keywords = config.keywords || [ 'translate' ];
-	formatter = ( config.format || 'pot' ).toLowerCase();
+	const keywords = config.keywords || [ 'translate' ];
 
 	if ( ! config.data && ! config.inputPaths ) {
 		throw new Error( 'Must provide input `data` or `inputPaths`' );
@@ -33,18 +29,18 @@ module.exports = function( config ) {
 		}, parserKeywords );
 	}
 
-	parser = new Xgettext( {
+	const parser = new Xgettext( {
 		keywords: parserKeywords,
-		parseOptions: { plugins: [ 'jsx', 'classProperties', 'objectRestSpread', 'exportExtensions', 'trailingFunctionCommas', 'asyncFunctions' ], allowImportExportEverywhere: true }
+		parseOptions: { plugins: [ 'jsx', 'classProperties', 'objectRestSpread', 'exportExtensions', 'trailingFunctionCommas', 'asyncFunctions' ], allowImportExportEverywhere: true },
 	} );
 
 	function getFileMatches( inputFiles ) {
 		return inputFiles.map( function( inputFile ) {
-			var relativeInputFilePath = path.relative( __dirname, inputFile ).replace( /^[\/.]+/, '' );
+			const relativeInputFilePath = path.relative( __dirname, inputFile ).replace( /^[\/.]+/, '' );
 			return parser.getMatches( fs.readFileSync( inputFile, 'utf8' ) ).map( function( match ) {
 				match.line = relativeInputFilePath + ':' + match.line;
 				return match;
-			});
+			} );
 		} );
 	}
 
@@ -53,7 +49,7 @@ module.exports = function( config ) {
 		matches = [ parser.getMatches( data ).map( function( match ) {
 			match.location = '<unknown>:' + match.line;
 			return match;
-		}) ];
+		} ) ];
 	} else {
 		matches = getFileMatches( config.inputPaths );
 	}
@@ -80,7 +76,7 @@ module.exports = function( config ) {
 		throw new Error( 'Formatter not found : ' + config.formatter );
 	}
 
-	textOutput = formatter( matches, config );
+	const textOutput = formatter( matches, config );
 
 	if ( config.output ) {
 		fs.writeFileSync( config.output, textOutput, 'utf8' );

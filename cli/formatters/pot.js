@@ -1,5 +1,5 @@
 const MAX_COLUMNS = 79,
-	SEPARATORS = [ ' ' , '/' , ',' , ';' ];
+	SEPARATORS = [ ' ', '/', ',', ';' ];
 
 /**
  * Split a string literal into multiple lines
@@ -10,18 +10,18 @@ const MAX_COLUMNS = 79,
  * "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
  * "tempor incididunt ut labore et dolore magna aliqua."
  *
- * @param literal {string}     - A string literal
- * @param startAt {string|int} - A prefix (or the negative length of the prefix) the literal will be printed at
- * @returns {string}           - A multiline string compatible with the POT format
+ * @param {string} literal     A string literal
+ * @param {string|int} startAt A prefix (or the negative length of the prefix) the literal will be printed at
+ * @returns {string}           A multiline string compatible with the POT format
  */
 function multiline( literal, startAt ) {
-	var nextSpaceIndex, i, char,
-		maxPosition = MAX_COLUMNS - 1; // MAX_COLUMNS minus the last character needed for closing string (a ");
+	let nextSpaceIndex, i, char;
+	const maxPosition = MAX_COLUMNS - 1; // MAX_COLUMNS minus the last character needed for closing string (a ");
 
 	if ( typeof startAt === 'string' ) {
-		startAt = - startAt.length;
+		startAt = -startAt.length;
 	} else if ( startAt === undefined ) {
-		startAt = - 6;
+		startAt = -6;
 	}
 
 	// Remove line break in trailing backslash syntax.
@@ -72,15 +72,15 @@ function uniqueMatchId( match ) {
 // Reference for the PO format: http://www.gnu.org/software/gettext/manual/gettext.html#PO-Files
 // More details: http://pology.nedohodnik.net/doc/user/en_US/ch-poformat.html
 module.exports = function( matches, options ) {
-	var uniqueMatchesMap = {},
-		output;
+	let output;
+	const uniqueMatchesMap = {};
 
 	// default match for the header
 	uniqueMatchesMap[ uniqueMatchId( { single: '' } ) ] = true;
 
-	output = "# THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY.\n";
+	output = '# THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY.\n';
 
-	if( options.copyrightNotice ) {
+	if ( options.copyrightNotice ) {
 		if ( Array.isArray( options.copyrightNotice ) ) {
 			output += '# ' + options.copyrightNotice.join( '\n#' );
 		} else {
@@ -92,24 +92,24 @@ module.exports = function( matches, options ) {
 	output += '\n';
 
 	output += options.potHeader || [
-			'msgid ""',
-			'msgstr ""',
-			'"Project-Id-Version: _s ' + ( options.projectName || '' ) + '\\n"',
-			'"Report-Msgid-Bugs-To: ' + ( options.projectBugsUrl || '' ) + '\\n"',
-			'"POT-Creation-Date: ' + new Date().toISOString() + '\\n"',
-			'"MIME-Version: 1.0\\n"',
-			'"Content-Type: text/plain; charset=UTF-8\\n"',
-			'"Content-Transfer-Encoding: 8bit\\n"',
-			'"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\\n"',
-			'"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"',
-			'"Language-Team: LANGUAGE <LL@li.org>\\n"',
-			''
-		].join( '\n' );
+		'msgid ""',
+		'msgstr ""',
+		'"Project-Id-Version: _s ' + ( options.projectName || '' ) + '\\n"',
+		'"Report-Msgid-Bugs-To: ' + ( options.projectBugsUrl || '' ) + '\\n"',
+		'"POT-Creation-Date: ' + new Date().toISOString() + '\\n"',
+		'"MIME-Version: 1.0\\n"',
+		'"Content-Type: text/plain; charset=UTF-8\\n"',
+		'"Content-Transfer-Encoding: 8bit\\n"',
+		'"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\\n"',
+		'"Last-Translator: FULL NAME <EMAIL@ADDRESS>\\n"',
+		'"Language-Team: LANGUAGE <LL@li.org>\\n"',
+		'',
+	].join( '\n' );
 
 	output += '\n';
 
 	matches = matches.map( function( match ) {
-		var matchId = uniqueMatchId( match ),
+		const matchId = uniqueMatchId( match ),
 			firstMatch = uniqueMatchesMap[ matchId ];
 
 		if ( ! firstMatch ) {
@@ -142,7 +142,7 @@ module.exports = function( matches, options ) {
 	} );
 
 	output += matches.map( function( match ) {
-		var matchPotStr = "";
+		let matchPotStr = '';
 
 		matchPotStr += Object.keys( match.lines ).map( function( line ) {
 			return '#: ' + line + '\n';
@@ -169,7 +169,7 @@ module.exports = function( matches, options ) {
 		return matchPotStr;
 	} ).join( '\n' );
 
-	output += "\n# THIS IS THE END OF THE GENERATED FILE.\n";
+	output += '\n# THIS IS THE END OF THE GENERATED FILE.\n';
 
 	return output;
 };

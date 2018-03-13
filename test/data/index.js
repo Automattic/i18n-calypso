@@ -1,5 +1,5 @@
 /*eslint-disable quote-props */
-var locale = {
+const locale = {
 	'': {
 		localeSlug: 'de',
 		'Plural-Forms': 'nplurals=2; plural=n != 1;',
@@ -8,43 +8,43 @@ var locale = {
 		'Content-Type': 'text/plain; charset=UTF-8',
 		'PO-Revision-Date': '2014-08-11 23:50:52+0000',
 		'Content-Transfer-Encoding': '8bit',
-		'Project-Id-Version': 'WordPress.com'
+		'Project-Id-Version': 'WordPress.com',
 	},
 	'test1': [
 		null,
-		'translation1'
+		'translation1',
 	],
 	'test2': null,
 	'thecontext\u0004test3': [
 		null,
-		'translation3'
+		'translation3',
 	],
 	'test4': [
 		null,
-		'translation4'
+		'translation4',
 	],
 	'test-will-overwrite': [
 		null,
-		'translation1'
+		'translation1',
 	],
 	'Featured': [
 		null,
-		'translation-without-context'
+		'translation-without-context',
 	],
 	'plural-test': [
 		'plural-test',
 		'plural-test singular translation',
-		'plural-test multiple translation'
+		'plural-test multiple translation',
 	],
 	'plural-test new syntax': [
 		'plural-test new syntax',
 		'plural-test new syntax translated, single',
-		'plural-test new syntax translated, plural'
+		'plural-test new syntax translated, plural',
 	],
 	'%(numberSelected)s site selected': [
 		'%(numberSelected)s sites selected',
 		'translation singular',
-		'translation plural'
+		'translation plural',
 	],
 	'Navigation item\u0004Menu': null,
 	'Section title\u0004Reader': null,
@@ -61,80 +61,80 @@ var locale = {
 	'Author byline\u0004By': null,
 	'Visit Plugin Site': [
 		null,
-		''
+		'',
 	],
 	'Activate': [
 		null,
-		'Aktivieren'
+		'Aktivieren',
 	],
 	'Search...': [
 		null,
-		'Suchen...'
+		'Suchen...',
 	],
 	'Select None': [
 		null,
-		''
+		'',
 	],
 	'Select All': [
 		null,
-		'Alle auswählen'
+		'Alle auswählen',
 	],
 	'All sites selected': [
 		null,
-		''
+		'',
 	],
 	'%(numberTotal)s site total': [
 		'%(numberTotal)s sites total',
 		'',
-		''
+		'',
 	],
 	'No sites found': [
 		null,
-		'Keine Websites gefunden'
+		'Keine Websites gefunden',
 	],
 	'Pages': [
 		null,
-		'Seiten'
+		'Seiten',
 	],
 	'Stats': [
 		null,
-		'Statistik'
+		'Statistik',
 	],
 	'Sharing': [
 		null,
-		'Sharing'
+		'Sharing',
 	],
 	'Settings': [
 		null,
-		'Einstellungen'
+		'Einstellungen',
 	],
 	'Manage': [
 		null,
-		'Verwalten'
+		'Verwalten',
 	],
 	'Customize': [
 		null,
-		'Anpassen'
+		'Anpassen',
 	],
 	'Domains': [
 		null,
-		'Domains'
+		'Domains',
 	],
 	'Upgrade': [
 		null,
-		'Aktualisierung'
+		'Aktualisierung',
 	],
 	'Posts': [
 		null,
-		'Beiträge'
+		'Beiträge',
 	],
 	'Theme': [
 		null,
-		'Theme'
+		'Theme',
 	],
 	'Open site in a new tab': [
 		null,
-		''
+		'',
 	],
 	'Filter Label\u0004All Sites': null,
 	'Filter label for site list\u0004Public': null,
@@ -142,48 +142,48 @@ var locale = {
 	'future time\u0004in %s': null,
 	'a few seconds': [
 		null,
-		'einige Sekunden'
+		'einige Sekunden',
 	],
 	'a minute': [
 		null,
-		'eine Minute'
+		'eine Minute',
 	],
 	'%d minutes': [
 		null,
-		'%d Minuten'
+		'%d Minuten',
 	],
 	'%d hours': [
 		null,
-		'%d Stunden'
+		'%d Stunden',
 	],
 	'%d days': [
 		null,
-		'%d Tage'
+		'%d Tage',
 	],
 	'a month': [
 		null,
-		'ein Monat'
+		'ein Monat',
 	],
 	'%d months': [
 		null,
-		'%d Monaten'
+		'%d Monaten',
 	],
 	'a year': [
 		null,
-		'ein Jahr'
+		'ein Jahr',
 	],
 	'%d years': [
 		null,
-		'%d Jahre'
+		'%d Jahre',
 	],
 	'number_format_thousands_sep': [
 		null,
-		'.'
+		'.',
 	],
 	'number_format_decimals': [
 		null,
-		','
-	]
+		',',
+	],
 };
 
 exports.locale = locale;

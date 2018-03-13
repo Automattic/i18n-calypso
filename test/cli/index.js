@@ -1,20 +1,17 @@
 /**
  * External dependencies
  */
-var expect = require( 'chai' ).expect,
+const expect = require( 'chai' ).expect,
 	path = require( 'path' ),
-	fs = require( 'fs'),
 	rewire = require( 'rewire' );
 
 /**
  * Internal dependencies
  */
-var i18nCalypsoCLI = require( '../../cli' );
+const i18nCalypsoCLI = require( '../../cli' );
 
 // generate whitelist file
-var sourceFiles;
-
-sourceFiles = [ 'examples/i18n-test-examples.jsx', 'examples/i18n-test-example-second-file.jsx' ].map( function( file ) {
+const sourceFiles = [ 'examples/i18n-test-examples.jsx', 'examples/i18n-test-example-second-file.jsx' ].map( function( file ) {
 	return path.join( __dirname, file );
 } );
 
@@ -27,127 +24,127 @@ sourceFiles = [ 'examples/i18n-test-examples.jsx', 'examples/i18n-test-example-s
 describe( 'index', function() {
 	describe( 'POT helpers', function() {
 		describe( '#multiline()', function() {
-			var multiline = rewire( '../../cli/formatters/pot.js' ).__get__( 'multiline' );
+			const multiline = rewire( '../../cli/formatters/pot.js' ).__get__( 'multiline' );
 
 			it( 'should not split a short literal into multiple lines', function() {
-				var literal = '"Lorem ipsum dolor sit amet"';
+				const literal = '"Lorem ipsum dolor sit amet"';
 				expect( multiline( literal ) ).to.equal( '"Lorem ipsum dolor sit amet"' );
 			} );
 
 			it( 'should split a long literal into multiple lines', function() {
 				// normal text
-				var literal1 = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."';
+				const literal1 = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."';
 				expect( multiline( literal1 ) ).to.equal( [
 					'""',
 					'"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "',
 					'"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "',
 					'"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "',
-					'"consequat."'
+					'"consequat."',
 				].join( '\n' ) );
 
 				// long words
-				var literal2 = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniamquisnostrudexercitationullamco laborisnisiutaliquipexeacommodo consequat."';
+				const literal2 = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniamquisnostrudexercitationullamco laborisnisiutaliquipexeacommodo consequat."';
 				expect( multiline( literal2 ) ).to.equal( [
 					'""',
 					'"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "',
 					'"temporincididuntutlaboreetdoloremagnaaliqua.Utenimadminimveniamquisnostrudexercitationullamco "',
-					'"laborisnisiutaliquipexeacommodo consequat."'
+					'"laborisnisiutaliquipexeacommodo consequat."',
 				].join( '\n' ) );
 
 				// 1 line just longer than 79 characters
-				var literal3 = '"If you’re looking to paste rich content from Microsoft Word, try turning this option off. The editor will clean up text pasted from Word automatically."';
+				const literal3 = '"If you’re looking to paste rich content from Microsoft Word, try turning this option off. The editor will clean up text pasted from Word automatically."';
 				expect( multiline( literal3 ) ).to.equal( [
 					'""',
 					'"If you’re looking to paste rich content from Microsoft Word, try turning "',
 					'"this option off. The editor will clean up text pasted from Word "',
-					'"automatically."'
+					'"automatically."',
 				].join( '\n' ) );
 
 				// 2 lines of 78 characters
-				var literal4 = '"The registry for your domains requires a special process for transfers. Our Happiness Engineers have been notified about your transfer request. Tnk you."';
+				const literal4 = '"The registry for your domains requires a special process for transfers. Our Happiness Engineers have been notified about your transfer request. Tnk you."';
 				expect( multiline( literal4 ) ).to.equal( [
 					'""',
 					'"The registry for your domains requires a special process for transfers. Our "',
-					'"Happiness Engineers have been notified about your transfer request. Tnk you."'
+					'"Happiness Engineers have been notified about your transfer request. Tnk you."',
 				].join( '\n' ) );
 
 				// A space after 79 characters
-				var literal5 = '"%d file could not be uploaded because your site does not support video files. Upgrade to a premium plan for video support."';
+				const literal5 = '"%d file could not be uploaded because your site does not support video files. Upgrade to a premium plan for video support."';
 				expect( multiline( literal5 ) ).to.equal( [
 					'""',
 					'"%d file could not be uploaded because your site does not support video "',
-					'"files. Upgrade to a premium plan for video support."'
+					'"files. Upgrade to a premium plan for video support."',
 				].join( '\n' ) );
 
 				// short words
-				var literal6 = '"a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9. a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9."';
+				const literal6 = '"a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9. a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9."';
 				expect( multiline( literal6 ) ).to.equal( [
 					'""',
 					'"a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9. a b "',
-					'"c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9."'
+					'"c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9."',
 				].join( '\n' ) );
 			} );
 
 			it( 'should add an empty line first if the literal can fit on one line without the prefix', function() {
-				var literal = '"There is an issue connecting to %s. {{button}}Reconnect {{icon/}}{{/button}}"';
+				const literal = '"There is an issue connecting to %s. {{button}}Reconnect {{icon/}}{{/button}}"';
 				expect( multiline( literal ) ).to.equal( [
 					'""',
-					'"There is an issue connecting to %s. {{button}}Reconnect {{icon/}}{{/button}}"'
+					'"There is an issue connecting to %s. {{button}}Reconnect {{icon/}}{{/button}}"',
 				].join( '\n' ) );
 			} );
 
 			it( 'should not add an empty line if the literal length is less or equal to 73 characters (79 - lengthOf("msgid "))', function() {
-				var literal = '"Testimonials are not enabled. Open your site settings to activate them."';
+				const literal = '"Testimonials are not enabled. Open your site settings to activate them."';
 				expect( multiline( literal ) ).to.equal( '"Testimonials are not enabled. Open your site settings to activate them."' );
 			} );
 
 			it( 'should split text on a /', function() {
-				var literal = '"{{wrapper}}%(email)s{{/wrapper}} {{emailPreferences}}change{{/emailPreferences}}"';
+				const literal = '"{{wrapper}}%(email)s{{/wrapper}} {{emailPreferences}}change{{/emailPreferences}}"';
 				expect( multiline( literal ) ).to.equal( [
 					'""',
 					'"{{wrapper}}%(email)s{{/wrapper}} {{emailPreferences}}change{{/"',
-					'"emailPreferences}}"'
+					'"emailPreferences}}"',
 				].join( '\n' ) );
 			} );
 
 			it( 'should work with longer prefixes', function() {
-				var literal = '"Categories: info popover text shown when creating a new category and selecting a parent category."';
+				const literal = '"Categories: info popover text shown when creating a new category and selecting a parent category."';
 				expect( multiline( literal, 'msgctxt ' ) ).to.equal( [
 					'""',
 					'"Categories: info popover text shown when creating a new category and "',
-					'"selecting a parent category."'
+					'"selecting a parent category."',
 				].join( '\n' ) );
 			} );
 
 			it( 'should work with very long words', function() {
-				var literal = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididuntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexercitationullamco laborisnisiutaliquipexeacommodo consequat."';
+				const literal = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididuntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexercitationullamco laborisnisiutaliquipexeacommodo consequat."';
 				expect( multiline( literal ) ).to.equal( [
 					'""',
 					'"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "',
 					'"temporincididuntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexercitationullamco "',
-					'"laborisnisiutaliquipexeacommodo consequat."'
+					'"laborisnisiutaliquipexeacommodo consequat."',
 				].join( '\n' ) );
 			} );
 
 			it( 'should not break very long line without separators', function() {
-				var literal = '"LoremipsumdolorsitametconsecteturadipiscingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat."';
+				const literal = '"LoremipsumdolorsitametconsecteturadipiscingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat."';
 				expect( multiline( literal ) ).to.equal( [
 					'""',
-					'"LoremipsumdolorsitametconsecteturadipiscingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat."'
+					'"LoremipsumdolorsitametconsecteturadipiscingelitseddoeiusmodtemporincididuntutlaboreetdoloremagnaaliquaUtenimadminimveniamquisnostrudexercitationullamcolaborisnisiutaliquipexeacommodoconsequat."',
 				].join( '\n' ) );
 			} );
 		} );
 	} );
 
 	describe( 'POT', function() {
-		var output;
+		let output;
 
 		before( function() {
 			output = i18nCalypsoCLI( {
 				projectName: 'i18nTest',
 				inputPaths: sourceFiles,
 				format: 'POT',
-				extras: [ 'date' ]
+				extras: [ 'date' ],
 			} );
 
 			// fs.writeFileSync( path.join( __dirname, 'pot.pot' ), output, 'utf8' );
@@ -203,7 +200,7 @@ describe( 'index', function() {
 				'msgid ""',
 				'"This is a multi-line translation with \\"mixed quotes\\" and mixed \'single "',
 				'"quotes\'"',
-				'msgstr ""'
+				'msgstr ""',
 			].join( '\n' ) );
 		} );
 
@@ -237,13 +234,13 @@ describe( 'index', function() {
 		} );
 
 		it( 'should properly handle unicode escapes', function() {
-			expect( output ).to.have.string( "This is how the test performed\\\\u2026" );
+			expect( output ).to.have.string( 'This is how the test performed\\\\u2026' );
 			expect( output ).to.have.string( "Here's how the post has performed so far\\\\u2026" );
 		} );
 	} );
 
 	describe( 'PHP', function() {
-		var output;
+		let output;
 
 		before( function() {
 			output = i18nCalypsoCLI( {
@@ -251,7 +248,7 @@ describe( 'index', function() {
 				inputPaths: sourceFiles,
 				phpArrayName: 'arrayName',
 				format: 'PHP',
-				extras: [ 'date' ]
+				extras: [ 'date' ],
 			} );
 		} );
 
@@ -330,7 +327,7 @@ describe( 'index', function() {
 	} );
 
 	describe( 'PHP with an additional textdomain parameter', function() {
-		var output;
+		let output;
 
 		describe( 'that has no special symbols', function() {
 			before( function() {
@@ -340,7 +337,7 @@ describe( 'index', function() {
 					phpArrayName: 'arrayName',
 					format: 'PHP',
 					extras: [ 'date' ],
-					textdomain: 'some_domain'
+					textdomain: 'some_domain',
 				} );
 			} );
 
@@ -357,7 +354,7 @@ describe( 'index', function() {
 					phpArrayName: 'arrayName',
 					format: 'PHP',
 					extras: [ 'date' ],
-					textdomain: '"some"weird-!=domain"'
+					textdomain: '"some"weird-!=domain"',
 				} );
 			} );
 
@@ -365,6 +362,5 @@ describe( 'index', function() {
 				expect( output ).to.have.string( '"\\"some\\"weird-!=domain\\""' );
 			} );
 		} );
-
 	} );
 } );

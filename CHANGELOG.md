@@ -1,3 +1,7 @@
+2.0.0.
+------
+Remove mixin, improve CI.
+
 1.9.1
 ------
 Fix a reference to an undefined value.

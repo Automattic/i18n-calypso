@@ -1,23 +1,18 @@
 #!/usr/bin/env node
 
+/* eslint no-console:0 */
+
 /**
  * External dependencies/
  */
-var flatten = require( 'lodash.flatten' ),
-	fs = require( 'fs' ),
+const fs = require( 'fs' ),
 	globby = require( 'globby' ),
-	path = require( 'path' ),
 	program = require( 'commander' );
 
 /**
  * Internal dependencies/
  */
-var i18nCalypso = require( '../cli' );
-
-/**
- * Internal variables/
- */
-var keywords, format, projectName, outputFile, extras, arrayName, inputFiles, inputPaths;
+const i18nCalypso = require( '../cli' );
 
 function collect( val, memo ) {
 	memo.push( val );
@@ -45,19 +40,18 @@ program
 	} )
 	.parse( process.argv );
 
-keywords = program.keywords;
-format = program.format;
-outputFile = program.outputFile;
-arrayName = program.arrayName;
-projectName = program.projectName;
-extras = Array.isArray( program.extra ) ? program.extra : ( program.extra ? [ program.extra ] : null );
-inputFiles = ( program.inputFile.length ) ? program.inputFile : program.args;
+const keywords = program.keywords;
+const format = program.format;
+const outputFile = program.outputFile;
+const arrayName = program.arrayName;
+const projectName = program.projectName;
+const inputFiles = ( program.inputFile.length ) ? program.inputFile : program.args;
 
 if ( inputFiles.length === 0 ) {
 	throw new Error( 'Error: You must enter the input file. Run `i18n-calypso -h` for examples.' );
 }
 
-inputPaths = globby.sync( inputFiles );
+const inputPaths = globby.sync( inputFiles );
 
 console.log( 'Reading inputFiles:\n\t- ' + inputPaths.join( '\n\t- ' ) );
 
@@ -67,14 +61,22 @@ inputPaths.forEach( function( inputFile ) {
 	}
 } );
 
-var result = i18nCalypso( {
+let extras = null;
+if ( program.extra ) {
+	extras = program.extra;
+	if ( ! Array.isArray( program.extra ) ) {
+		extras = [ extras ];
+	}
+}
+
+const result = i18nCalypso( {
 	keywords: keywords,
 	output: outputFile,
 	phpArrayName: arrayName,
 	inputPaths: inputPaths,
 	format: format,
 	extras: extras,
-	projectName: projectName
+	projectName: projectName,
 } );
 
 if ( outputFile ) {

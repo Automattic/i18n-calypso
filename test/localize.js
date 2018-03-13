@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-var React = require( 'react' ),
+const React = require( 'react' ),
 	setupEnzymeAdapter = require( 'enzyme-adapter-react-helper' ),
 	expect = require( 'chai' ).expect,
 	shallow = require( 'enzyme' ).shallow,
@@ -10,8 +10,14 @@ var React = require( 'react' ),
 /**
  * Internal dependencies
  */
-var localize = require( '..' ).localize,
-	emptyRender = function() { return null; };
+const localize = require( '..' ).localize;
+/**
+ * Render nothing
+ * @return {null} Null
+ */
+const emptyRender = function() {
+	return null;
+};
 
 describe( 'localize()', function() {
 	useFakeDom();
@@ -24,16 +30,16 @@ describe( 'localize()', function() {
 			}
 		}
 
-		var LocalizedComponent = localize( MyComponent );
+		const LocalizedComponent = localize( MyComponent );
 
 		expect( LocalizedComponent.displayName ).to.equal( 'Localized(MyComponent)' );
 	} );
 
 	it( 'should be named using the displayName of the composed component', function() {
-		var MyComponent = () => emptyRender();
+		const MyComponent = () => emptyRender();
 		MyComponent.displayName = 'MyComponent';
 
-		var LocalizedComponent = localize( MyComponent );
+		const LocalizedComponent = localize( MyComponent );
 
 		expect( LocalizedComponent.displayName ).to.equal( 'Localized(MyComponent)' );
 	} );
@@ -41,17 +47,17 @@ describe( 'localize()', function() {
 	it( 'should be named using the name of the composed function component', function() {
 		function MyComponent() {}
 
-		var LocalizedComponent = localize( MyComponent );
+		const LocalizedComponent = localize( MyComponent );
 
 		expect( LocalizedComponent.displayName ).to.equal( 'Localized(MyComponent)' );
 	} );
 
 	it( 'should provide translate, moment, and numberFormat props to rendered child', function() {
-		var MyComponent = () => emptyRender();
-		var LocalizedComponent = localize( MyComponent );
+		const MyComponent = () => emptyRender();
+		const LocalizedComponent = localize( MyComponent );
 
-		var mounted = shallow( React.createElement( LocalizedComponent ) );
-		var props = mounted.find( MyComponent ).props();
+		const mounted = shallow( React.createElement( LocalizedComponent ) );
+		const props = mounted.find( MyComponent ).props();
 
 		expect( props.translate ).to.be.a( 'function' );
 		expect( props.moment ).to.be.a( 'function' );

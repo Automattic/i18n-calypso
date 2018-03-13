@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-var assert = require( 'assert' ),
+const assert = require( 'assert' ),
 	React = require( 'react' ),
-	ReactDomServer = require( 'react-dom/server'),
+	ReactDomServer = require( 'react-dom/server' ),
 	useFakeDom = require( 'react-test-env' ).useFakeDom;
 
 /**
  * Internal dependencies
  */
-var data = require( './data' ),
+const data = require( './data' ),
 	i18n = require( '..' ),
 	moment = i18n.moment,
 	numberFormat = i18n.numberFormat,
@@ -37,67 +37,67 @@ describe( 'I18n', function() {
 	} );
 
 	describe( 'setLocale()', function() {
-		describe( 'adding a new locale source from the same language', function () {
+		describe( 'adding a new locale source from the same language', function() {
 			beforeEach( function() {
 				i18n.setLocale( {
-					'': data.locale[''],
-					'test1': [
+					'': data.locale[ '' ],
+					test1: [
 						null,
-						'translation1-1'
+						'translation1-1',
 					],
-					'test2': [
+					test2: [
 						null,
-						'translation2'
+						'translation2',
 					],
 					'new translation': [
 						null,
-						'Neue Übersetzung'
-					]
+						'Neue Übersetzung',
+					],
 				} );
 			} );
 
-			it( 'should make the new translations available', function () {
+			it( 'should make the new translations available', function() {
 				assert.equal( 'Neue Übersetzung', translate( 'new translation' ) );
 			} );
-			it( 'should keep the original translations available as well', function () {
+			it( 'should keep the original translations available as well', function() {
 				assert.equal( 'Aktivieren', translate( 'Activate' ) );
 			} );
-			it( 'should replace existing translations with the new version', function () {
+			it( 'should replace existing translations with the new version', function() {
 				assert.equal( 'translation1-1', translate( 'test1' ) );
 				assert.equal( 'translation2', translate( 'test2' ) );
 			} );
 		} );
 
-		describe( 'adding a new locale source from a different language', function () {
+		describe( 'adding a new locale source from a different language', function() {
 			beforeEach( function() {
 				i18n.setLocale( {
-					'': Object.assign( {}, data.locale[''], {
+					'': Object.assign( {}, data.locale[ '' ], {
 						localeSlug: 'fr',
-						'Plural-Forms': 'nplurals=2; plural=n > 1;'
+						'Plural-Forms': 'nplurals=2; plural=n > 1;',
 					} ),
-					'test1': [
+					test1: [
 						null,
-						'traduction1'
+						'traduction1',
 					],
-					'test2': [
+					test2: [
 						null,
-						'traduction2'
+						'traduction2',
 					],
 					'new translation': [
 						null,
-						'nouvelle traduction'
-					]
+						'nouvelle traduction',
+					],
 				} );
 			} );
 
-			it( 'should make replace previous locale translations', function () {
+			it( 'should make replace previous locale translations', function() {
 				assert.notEqual( 'translation1', translate( 'test1' ) );
 				assert.equal( 'traduction1', translate( 'test1' ) );
 			} );
-			it( 'should make old translations unavailable', function () {
+			it( 'should make old translations unavailable', function() {
 				assert.equal( 'Activate', translate( 'Activate' ) );
 			} );
-			it( 'should make new translations available', function () {
+			it( 'should make new translations available', function() {
 				assert.equal( 'nouvelle traduction', translate( 'new translation' ) );
 			} );
 		} );
@@ -120,12 +120,12 @@ describe( 'I18n', function() {
 			it( 'should find a string with context', function() {
 				assert.equal( 'translation3', translate( {
 					original: 'test3',
-					context: 'thecontext'
+					context: 'thecontext',
 				} ) );
 			} );
 			it( 'should allow original text as options attribute or initial argument', function() {
 				assert.equal( 'translation3', translate( 'test3', {
-					context: 'thecontext'
+					context: 'thecontext',
 				} ) );
 			} );
 		} );
@@ -134,12 +134,12 @@ describe( 'I18n', function() {
 			it( 'should find a string with comment', function() {
 				assert.equal( 'translation4', translate( {
 					original: 'test4',
-					comment: 'thecomment'
+					comment: 'thecomment',
 				} ) );
 			} );
 			it( 'should allow original text as options attribute or initial argument', function() {
 				assert.equal( 'translation4', translate( 'test4', {
-					comment: 'thecomment'
+					comment: 'thecomment',
 				} ) );
 			} );
 		} );
@@ -150,8 +150,8 @@ describe( 'I18n', function() {
 					original: {
 						single: 'plural-test',
 						plural: 'plural-test pl key',
-						count: 1
-					}
+						count: 1,
+					},
 				} ) );
 			} );
 			it( 'should use the plural form for > one items', function() {
@@ -159,18 +159,18 @@ describe( 'I18n', function() {
 					original: {
 						single: 'plural-test',
 						plural: 'plural-test pl key',
-						count: 2
-					}
+						count: 2,
+					},
 				} ) );
 			} );
 			it( 'should honor the new plural translation syntax (singular test)', function() {
 				assert.equal( 'plural-test new syntax translated, single', translate( 'plural-test new syntax', 'plural-test new syntaxes', {
-					count: 1
+					count: 1,
 				} ) );
 			} );
 			it( 'should honor the new plural translation syntax (plural test)', function() {
 				assert.equal( 'plural-test new syntax translated, plural', translate( 'plural-test new syntax', 'plural-test new syntaxes', {
-					count: 2
+					count: 2,
 				} ) );
 			} );
 		} );
@@ -180,8 +180,8 @@ describe( 'I18n', function() {
 				assert.equal( 'foo bar', translate( 'foo %(test)s',
 					{
 						args: {
-							test: 'bar'
-						}
+							test: 'bar',
+						},
 					}
 				) );
 			} );
@@ -189,8 +189,8 @@ describe( 'I18n', function() {
 				assert.equal( 'foo 1', translate( 'foo %(test)d',
 					{
 						args: {
-							test: 1
-						}
+							test: 1,
+						},
 					}
 				) );
 			} );
@@ -198,22 +198,22 @@ describe( 'I18n', function() {
 				assert.equal( 'foo 1.005', translate( 'foo %(test)f',
 					{
 						args: {
-							test: 1.005
-						}
+							test: 1.005,
+						},
 					}
 				) );
 			} );
 			it( 'should allow passing an array of arguments', function() {
 				assert.equal( 'test1 test2 test3 test4', translate( 'test1 %1$s test3 %2$s',
 					{
-						args: [ 'test2', 'test4' ]
+						args: [ 'test2', 'test4' ],
 					}
 				) );
 			} );
 			it( 'should allow passing a single argument', function() {
 				assert.equal( 'test1 test2 test3', translate( 'test1 %s test3',
 					{
-						args: 'test2'
+						args: 'test2',
 					}
 				) );
 			} );
@@ -221,18 +221,18 @@ describe( 'I18n', function() {
 
 		describe( 'with mixed components', function() {
 			it( 'should handle sprintf and component interpolation together', function() {
-				var input = React.createElement( 'input' ),
+				const input = React.createElement( 'input' ),
 					expectedResultString = '<span>foo <input/> bar</span>',
 					placeholder = 'bar',
 					translatedComponent = translate( 'foo {{ input /}} %(placeholder)s', {
 						components: {
-							input: input
+							input: input,
 						},
 						args: {
-							placeholder: placeholder
-						}
+							placeholder: placeholder,
+						},
 					} ),
-					instance = React.createElement('span', null, translatedComponent);
+					instance = React.createElement( 'span', null, translatedComponent );
 
 				assert.equal( expectedResultString, stripReactAttributes( ReactDomServer.renderToStaticMarkup( instance ) ) );
 			} );
@@ -243,8 +243,8 @@ describe( 'I18n', function() {
 				i18n.addTranslations( {
 					'test-does-not-exist': [
 						null,
-						'translation3'
-					]
+						'translation3',
+					],
 				} );
 
 				assert.equal( 'translation3', translate( 'test-does-not-exist' ) );
@@ -253,8 +253,8 @@ describe( 'I18n', function() {
 				i18n.addTranslations( {
 					'test-will-overwrite': [
 						null,
-						'not-translation1'
-					]
+						'not-translation1',
+					],
 				} );
 
 				assert.equal( 'not-translation1', translate( 'test-will-overwrite' ) );
@@ -307,7 +307,7 @@ describe( 'I18n', function() {
 			} );
 			it( 'should accept decimal as argument or object attribute', function() {
 				assert.equal( '150,00', numberFormat( 150, {
-					decimals: 2
+					decimals: 2,
 				} ) );
 			} );
 		} );
@@ -317,7 +317,7 @@ describe( 'I18n', function() {
 				assert.equal( '2*500@330', numberFormat( 2500.33, {
 					decimals: 3,
 					thousandsSep: '*',
-					decPoint: '@'
+					decPoint: '@',
 				} ) );
 			} );
 		} );
