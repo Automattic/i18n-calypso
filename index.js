@@ -25,4 +25,3 @@ module.exports = {
 	$this: i18n,
 	I18N: I18N,
 };
-

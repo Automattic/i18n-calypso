@@ -5,7 +5,6 @@ jobs:
       - image: circleci/node:8.9.4
     steps:
       - checkout
-      - run: echo "Hello World"
       - run: npm install
-      - run: npm lint
+      - run: npm run lint
       - run: npm test

@@ -2,7 +2,7 @@
   "name": "i18n-calypso",
   "version": "2.0.0",
   "description": "i18n JavaScript library on top of Jed originally used in Calypso",
-  "main": "index.js",
+  "module": "build/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Automattic/i18n-calypso.git"
@@ -16,7 +16,8 @@
     "url": "https://github.com/Automattic/i18n-calypso/issues"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --recursive",
+    "build": "webpack",
+    "test": "mocha --recursive",
     "lint": "eslint ."
   },
   "homepage": "https://github.com/Automattic/i18n-calypso#readme",
@@ -38,7 +39,6 @@
     "xgettext-js": "^1.0.0"
   },
   "devDependencies": {
-    "babel-core": "6.25.0",
     "babel-eslint": "6.1.2",
     "chai": "^3.5.0",
     "enzyme": "^3.2.0",
@@ -52,6 +52,7 @@
     "react-dom": "^16.0.0",
     "react-test-env": "0.1.1",
     "react-test-renderer": "^16.0.0",
-    "rewire": "^2.5.1"
+    "rewire": "^2.5.1",
+    "webpack": "3.10.0"
   }
 }
