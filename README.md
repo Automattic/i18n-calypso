@@ -7,10 +7,10 @@ This lib enables translations, exposing three public methods:
 * [.moment()](#moment-method)
 * [.numberFormat()](#numberformat-method)
 
-It also provides three utility methods for your React application:
+It also provides a Higher-Order Component named [localize()](#localize). Wrapping your component in `localize()` will give it the aforementioned functions as props. This is the suggested way of using them with React components.
 
-* [.mixin](#mixin)
-* [.localize()](#localize)
+Finally, this lib exposes a utility methods for your React application:
+
 * [.hasTranslation()](#hastranslation-method)
 
 ## Translate Method
