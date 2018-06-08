@@ -9,7 +9,7 @@ This lib enables translations, exposing three public methods:
 
 It also provides a Higher-Order Component named [localize()](#localize). Wrapping your component in `localize()` will give it the aforementioned functions as props. This is the suggested way of using them with React components.
 
-Finally, this lib exposes a utility methods for your React application:
+Finally, this lib exposes a utility method for your React application:
 
 * [.hasTranslation()](#hastranslation-method)
 
