@@ -255,29 +255,7 @@ i18n.hasTranslation( 'Not translation exists' ); // false
 
 ## Mixin
 
-### Usage
-
-```jsx
-import { mixin as i18nMixin } from 'i18n-calypso';
-
-const MyComponent = React.createClass( {
-    mixins: [ i18nMixin ],
-    render: function() {
-        return (
-            <p>{ this.translate( 'Hello World' ) }</p>
-        );
-    }
-} );
-```
-
-Or inject it in all your components using:
-
-```js
-import { mixin as i18nMixin } from 'i18n-calypso';
-import ReactInjection from 'react/lib/ReactInjection';
-
-ReactInjection.Class.injectMixin( i18nMixin );
-```
+The mixin has been removed from this distribution. Please use version 1 of `i18n-calypso` if you need to use the mixin.
 
 
 ## Localize
@@ -288,11 +266,6 @@ original props plus props to assist in localization (`translate`, `moment`, and 
 The advantage of using a higher-order component instead of calling translate directly from
 the `i18n-calypso` module is that the latter does not properly account for change events
 which may be emitted by the state emitter object.
-
-It should act as a substitute to the existing i18n-calypso-mixin which provides the `this.translate`,
-`this.moment`, and `this.numberFormat` functions. Notably, the higher-order component can be
-used for components which do not support mixins, including those inheriting the `Component` class
-or stateless function components.
 
 ### Usage
 
