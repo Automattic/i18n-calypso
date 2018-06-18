@@ -1,3 +1,7 @@
+1.9.2
+------
+Fixes circular reference when calling JSON.stringify with the Community Translator enabled in Calypso https://github.com/Automattic/i18n-calypso/pull/54
+
 1.9.1
 ------
 Fix a reference to an undefined value.
