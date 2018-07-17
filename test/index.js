@@ -10,7 +10,6 @@ var assert = require( 'assert' ),
  */
 var data = require( './data' ),
 	i18n = require( '..' ),
-	moment = i18n.moment,
 	numberFormat = i18n.numberFormat,
 	translate = i18n.translate;
 
@@ -264,29 +263,6 @@ describe( 'I18n', function() {
 				} );
 
 				assert.equal( 'not-translation1', translate( 'test-will-overwrite' ) );
-			} );
-		} );
-	} );
-
-	describe( 'moment()', function() {
-		describe( 'generating date strings', function() {
-			it( 'should know the short weekdays', function() {
-				assert.equal( 'Fr', moment( '2014-07-18' ).format( 'dd' ) );
-			} );
-			it( 'should use available translations for date format', function() {
-				assert.equal( 'Freitag, 18. Juli 2014 21:59', moment( '2014-07-18T14:59:09-07:00' ).utcOffset( '+00:00' ).format( 'LLLL' ) );
-			} );
-			it( 'should use available translations for relative time in the past', function() {
-				assert.equal( 'vor 3 Stunden', moment().subtract( 3, 'hours' ).fromNow() );
-			} );
-			it( 'should use available translations for relative time in the future', function() {
-				assert.equal( 'in ein paar Sekunden', moment().add( 10, 'seconds' ).fromNow() );
-			} );
-			it( 'should be able to convert dates to any timezone', function() {
-				assert.equal( 'Freitag, 18. Juli 2014 14:59', moment( '2014-07-18T14:59:09-07:00' ).tz( 'America/Los_Angeles' ).format( 'LLLL' ) );
-				assert.equal( 'Samstag, 19. Juli 2014 06:59', moment( '2014-07-18T14:59:09-07:00' ).tz( 'Asia/Tokyo' ).format( 'LLLL' ) );
-				assert.equal( 'Freitag, 18. Juli 2014 23:59', moment( '2014-07-18T14:59:09-07:00' ).tz( 'Europe/Paris' ).format( 'LLLL' ) );
-				assert.equal( 'Freitag, 18. Juli 2014 22:59', moment( '2014-07-18T14:59:09-07:00' ).tz( 'Europe/London' ).format( 'LLLL' ) );
 			} );
 		} );
 	} );

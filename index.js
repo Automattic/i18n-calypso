@@ -5,7 +5,6 @@ var I18N = require( './lib' ),
 	i18n = new I18N();
 
 module.exports = {
-	moment: i18n.moment,
 	numberFormat: i18n.numberFormat.bind( i18n ),
 	translate: i18n.translate.bind( i18n ),
 	configure: i18n.configure.bind( i18n ),

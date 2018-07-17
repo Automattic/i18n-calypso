@@ -44,7 +44,7 @@ describe( 'localize()', function() {
 		expect( LocalizedComponent.displayName ).to.equal( 'Localized(MyComponent)' );
 	} );
 
-	it( 'should provide translate, moment, and numberFormat props to rendered child', function() {
+	it( 'should provide translate and numberFormat props to rendered child', function() {
 		var MyComponent = () => emptyRender();
 		var LocalizedComponent = localize( MyComponent );
 
@@ -52,7 +52,6 @@ describe( 'localize()', function() {
 		var props = mounted.find( MyComponent ).props();
 
 		expect( props.translate ).to.be.a( 'function' );
-		expect( props.moment ).to.be.a( 'function' );
 		expect( props.numberFormat ).to.be.a( 'function' );
 	} );
 } );

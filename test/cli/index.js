@@ -306,11 +306,6 @@ describe( 'index', function() {
 			expect( output ).to.have.string( '_n( "single test2", "plural test2", 1 ),' );
 		} );
 
-		it( 'should include default translations for momentjs object', function() {
-			expect( output ).to.have.string( '__( "number_format_thousands_sep" ),' );
-			expect( output ).to.have.string( '__( "number_format_decimal_point" ),' );
-		} );
-
 		it( 'should close the php array', function() {
 			expect( output ).to.have.string( '\n);' );
 		} );
