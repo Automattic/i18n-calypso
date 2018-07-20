@@ -35,19 +35,19 @@ module.exports = function( config ) {
 
 	parser = new Xgettext( {
 		keywords: parserKeywords,
-		parseOptions: { 
-			plugins: [ 
-				'jsx', 
-				'classProperties', 
-				'objectRestSpread', 
-				'exportExtensions', 
-				'trailingFunctionCommas', 
+		parseOptions: {
+			plugins: [
 				'asyncFunctions',
-				'exportNamespaceFrom',
+				'classProperties',
+				'dynamicImport',
 				'exportDefaultFrom',
-				'dynamicImport'
-			], 
-			allowImportExportEverywhere: true 
+				'exportExtensions',
+				'exportNamespaceFrom',
+				'jsx',
+				'objectRestSpread',
+				'trailingFunctionCommas'
+			],
+			allowImportExportEverywhere: true
 		}
 	} );
 
