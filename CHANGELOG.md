@@ -1,3 +1,8 @@
+2.0.2
+------
+
+* In localize module, passing down `locale` as default prop to wrapped component [#77](https://github.com/Automattic/i18n-calypso/pull/77).
+
 2.0.1
 ------
 
