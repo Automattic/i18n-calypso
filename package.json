@@ -36,13 +36,13 @@
     "xgettext-js": "^2.0.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "enzyme-adapter-react-helper": "^1.2.3",
-    "mocha": "^5.2.0",
-    "react-dom": "^16.0.0",
-    "react-test-renderer": "^16.0.0",
-    "rewire": "^2.5.1"
+    "chai": "3.5.0",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "enzyme-adapter-react-helper": "1.2.3",
+    "mocha": "5.2.0",
+    "react-dom": "16.2.0",
+    "react-test-renderer": "16.2.0",
+    "rewire": "2.5.2"
   }
 }
