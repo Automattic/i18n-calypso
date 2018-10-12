@@ -1,7 +1,8 @@
 2.0.2
 ------
 
-* In localize module, passing down `locale` as default prop to wrapped component [#77](https://github.com/Automattic/i18n-calypso/pull/77).
+* The localize HoC will now pass down the current locale slug as a `locale` prop to the wrapped component [#77](https://github.com/Automattic/i18n-calypso/pull/77).
+* Open up the range on the moment-timezone dependency to allow clients to use any moment-timezone from the 0.5 range. [#78](https://github.com/Automattic/i18n-calypso/pull/78)
 
 2.0.1
 ------
