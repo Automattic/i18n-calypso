@@ -23,7 +23,7 @@
     "commander": "^2.9.0",
     "create-react-class": "^15.6.2",
     "debug": "^3.1.0",
-    "globby": "^6.1.0",
+    "globby": "^8.0.0",
     "hash.js": "^1.1.5",
     "interpolate-components": "1.1.1",
     "jed": "1.1.1",
