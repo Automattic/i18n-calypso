@@ -1,3 +1,9 @@
+# This repository has moved!
+
+It is now part of the [Calypso](https://github.com/Automattic/wp-calypso/tree/master/packages/i18n-calypso) repository.
+
+The published npm package will continue to be available as before, no changes necessary!
+
 I18n Calypso
 ============
 
