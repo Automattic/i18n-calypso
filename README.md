@@ -217,7 +217,7 @@ var content = i18n.translate( 'post', {
 
 ```
 
-See the [test cases](test/test.jsx) for more example usage.
+See the [test cases](test/index.js) for more example usage.
 
 ## Moment Method
 
